@@ -1,7 +1,7 @@
 #include <stdio.h>
-#include <stdbool.h>
+#include <stdlib.h>
 
-bool check_sort(int *arr, size_t size);
+int check_sort(int *arr, size_t size);
 
 int main() {
 
@@ -12,8 +12,7 @@ int main() {
     size_t array_size = sizeof arr / sizeof arr[0];
     
     // Check if the array is still not sorted
-    while (check_sort(arr, array_size) == false) {
-
+    while (check_sort(arr, array_size) == 0) {
         // Loop through the array but reduce the array size to 1
         // To avoid accessing a garbage data at the end of the array
         for (int i = 0; i < array_size-1; i++) {
@@ -37,20 +36,22 @@ int main() {
 }
 
 // This use to check if the array is already sorted
-bool check_sort(int *arr, size_t size) {
-    bool bool_arr[size - 1];
-    bool is_sorted = true;
+int check_sort(int *arr, size_t size) {
+    int *bool_arr = malloc((size - 1) * sizeof(int));
+    int is_sorted = 1;
     for (int i = 0; i < size-1; i++) {
         if (arr[i] <= arr[i+1]) {
-            bool_arr[i] = true;
+            bool_arr[i] = 1;
         } else {
-            bool_arr[i] = false;
+            bool_arr[i] = 0;
         }
     }
     for (int i = 0; i < sizeof bool_arr / sizeof bool_arr[0]; i++) {
         if (bool_arr[i] == 0) {
-            is_sorted = false;
+            is_sorted = 0;
         }
     }
+
+    free(bool_arr);
     return is_sorted;
 }
