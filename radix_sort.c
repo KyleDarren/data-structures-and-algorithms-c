@@ -48,14 +48,6 @@ int main() {
             }
         }
 
-        // printf("\n");
-        // for (int i=0; i < rows; i++) {
-        //     for (int j=0; j < cols; j++) {
-        //         printf("%d ", radix[i][j]);
-        //     }
-        //     printf("\n");
-        // }
-
         // Reset the radix array
         for (int i=0; i < rows; i++) {
             memset(radix[i], 0, cols * sizeof(int));
