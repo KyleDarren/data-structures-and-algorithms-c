@@ -1,4 +1,4 @@
-<h1>Sample Output of the Algorithm</h1>
+<h1>Sample Output of the Algorithms</h1>
 
 <h2>1. triangle.c</h2><br>
 
