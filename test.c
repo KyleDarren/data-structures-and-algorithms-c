@@ -8,29 +8,40 @@ void print_arr(int *arr, int arr_size) {
     }
 }
 
-int merge(int* left_arr, int* right_arr, int left_arr_size, int right_arr_size) {
-    int *result_arr = (int*)calloc(left_arr_size + right_arr_size, sizeof(int));
-
-    // Copy left_arr to the result_arr
-    for (int i=0; i < left_arr_size; i++) {
-        result_arr[i] = left_arr[i];
+void removeFirst(int **arr, int arr_size) {
+    // Copy the array to a temporary array
+    int *temp_arr = (int*)calloc(arr_size, sizeof(int));
+    for (int i=0; i < arr_size; i++) {
+        temp_arr[i] = (*arr)[i];
     }
 
-    int i = 0;
-    while (right_arr_size > 0) {
-        result_arr[left_arr_size+i] = right_arr[i];
-        i++;
-        right_arr_size--;
+    // Reallocate the array
+    *arr = realloc(*arr, (arr_size-1) * sizeof(int));
+    for (int i=0; i < arr_size-1; i++) {
+        (*arr)[i] = temp_arr[i+1];
     }
-    print_arr(result_arr, 8);
+}
+
+void insertBefore(int **arr, int arr_size, int index, int item) {
+    *arr = realloc(*arr, (arr_size+1)*sizeof(int));
+    for (int i=arr_size; i > index; i--) {
+        (*arr)[i] = (*arr)[i-1];
+    }
+    (*arr)[index] = item;
 }
 
 int main() {
     int left_arr[] = {1, 3, 5, 7};
-    int right_arr[] = {2, 4, 6, 8};
-    int left_arr_size = sizeof(left_arr) / sizeof(left_arr[0]);
-    int right_arr_size = sizeof(right_arr) / sizeof(right_arr[0]);
+    int *left_arr_dyn = (int*)calloc(4, sizeof(int));
+    for (int i=0; i < 4; i++) {
+        left_arr_dyn[i] = left_arr[i];
+    }
+    
+    insertBefore(&left_arr_dyn, 4, 1, 5);
 
-    merge(left_arr, right_arr, left_arr_size, right_arr_size);
+    print_arr(left_arr_dyn, 5);
+
+
+    
     return 0;
 }
